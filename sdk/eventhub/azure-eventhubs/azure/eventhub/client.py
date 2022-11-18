@@ -415,6 +415,7 @@ class EventHubClient(object):
             mgmt_client = uamqp.AMQPClient(self.mgmt_target, auth=mgmt_auth, debug=self.debug)
             mgmt_client.open()
             mgmt_msg = Message(application_properties={'name': self.eh_name})
+            mgmt_msg.application_properties["security_token"] = mgmt_auth.token
             response = mgmt_client.mgmt_request(
                 mgmt_msg,
                 constants.READ_OPERATION,
